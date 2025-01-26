@@ -2,13 +2,15 @@ package fibonachiheap;
 
 /**
  * FibonacciHeap
- *
  * An implementation of Fibonacci heap over positive integers.
  *
  */
 public class FibonacciHeap
 {
-	public HeapNode min;
+	public HeapNode min; // Pointer to the minimum node
+	public int size; // Number of nodes in the heap
+	public int totalLinks; // Total number of links
+	public int totalCuts; // Total number of cuts
 
 	/**
 	 *
@@ -17,13 +19,15 @@ public class FibonacciHeap
 	 */
 	public FibonacciHeap()
 	{
-		// should be replaced by student code
+		this.min = null;
+		this.size = 0;
+		this.totalCuts = 0;
+		this.totalLinks = 0;
 	}
 
 	/**
 	 *
 	 * pre: key > 0
-	 *
 	 * Insert (key,info) into the heap and return the newly generated HeapNode.
 	 *
 	 */
@@ -39,7 +43,7 @@ public class FibonacciHeap
 	 */
 	public HeapNode findMin()
 	{
-		return null; // should be replaced by student code
+		return this.min;
 	}
 
 	/**
@@ -56,7 +60,6 @@ public class FibonacciHeap
 	/**
 	 *
 	 * pre: 0<diff<x.key
-	 *
 	 * Decrease the key of x by diff and fix the heap.
 	 *
 	 */
@@ -83,7 +86,7 @@ public class FibonacciHeap
 	 */
 	public int totalLinks()
 	{
-		return 0; // should be replaced by student code
+		return this.totalLinks;
 	}
 
 
@@ -94,7 +97,7 @@ public class FibonacciHeap
 	 */
 	public int totalCuts()
 	{
-		return 0; // should be replaced by student code
+		return this.totalCuts;
 	}
 
 
