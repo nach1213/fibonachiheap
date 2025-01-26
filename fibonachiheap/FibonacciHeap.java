@@ -80,19 +80,19 @@ public class FibonacciHeap
 		}
 		HeapNode cornetMin = this.min;
 
-		// Move each child of z into the root list
+		// Move each child of cornetMin into the root list
 		if (cornetMin.child != null) {
-			HeapNode c = cornetMin.child;
+			HeapNode child = cornetMin.child;
 			do {
-				HeapNode nextC = c.next;
-				// Detach c from z and add to root list
-				c.parent = null;
-				spliceIntoList(this.min, c);
-				c = nextC;
-			} while (c != cornetMin.child);
+				HeapNode nextC = child.next;
+				// Detach child from cornetMin and add to root list
+				child.parent = null;
+				spliceIntoList(this.min, child);
+				child = nextC;
+			} while (child != cornetMin.child);
 		}
 
-		// Remove z from the root list
+		// Remove cornetMin from the root list
 		removeNodeFromList(cornetMin);
 		this.size--;
 
