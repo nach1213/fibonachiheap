@@ -1,7 +1,6 @@
 package fibonachiheap.fibonachiheap;
 /**
  * FibonacciHeap
- *
  * An implementation of Fibonacci heap over positive integers.
  *
  */
@@ -88,7 +87,7 @@ public class FibonacciHeap
 				// Detach child from cornetMin and add to root list
 				child.parent = null;
 				spliceIntoList(this.min, child);
-				child = nextC;
+				child = child.next;
 			} while (child != cornetMin.child);
 		}
 
@@ -112,23 +111,23 @@ public class FibonacciHeap
 	 * Decrease the key of x by diff and fix the heap.
 	 *
 	 */
-	public void decreaseKey(HeapNode x, int diff)
+	public void decreaseKey(HeapNode node, int diff)
 	{
-		if (x == null || diff <= 0) {
+		if (node == null || diff <= 0) {
 			return;
 		}
-		x.key -= diff;
-		HeapNode y = x.parent;
+		node.key -= diff;
+		HeapNode parent = node.parent;
 
-		// If x now violates the heap property with respect to its parent
-		if (y != null && x.key < y.key) {
-			cut(x, y);
-			cascadingCut(y);
+		// If node now violates the heap property with respect to its parent
+		if (parent != null && node.key < parent.key) {
+			cut(node, parent);
+			cascadingCut(parent);
 		}
 
 		// Possibly update global min
-		if (this.min != null && x.key < this.min.key) {
-			this.min = x;
+		if (this.min != null && node.key < this.min.key) {
+			this.min = node;
 		}
 	}
 
