@@ -2,7 +2,6 @@ package fibonachiheap.fibonachiheap;
 
 /**
  * FibonacciHeap
- *
  * An implementation of Fibonacci heap over positive integers.
  *
  */
@@ -29,7 +28,6 @@ public class FibonacciHeap
 	/**
 	 *
 	 * pre: key > 0
-	 *
 	 * Insert (key,info) into the heap and return the newly generated HeapNode.
 	 *
 	 */
@@ -45,7 +43,7 @@ public class FibonacciHeap
 	 */
 	public HeapNode findMin()
 	{
-		return null; // should be replaced by student code
+		return this.min;
 	}
 
 	/**
@@ -62,7 +60,6 @@ public class FibonacciHeap
 	/**
 	 *
 	 * pre: 0<diff<x.key
-	 *
 	 * Decrease the key of x by diff and fix the heap.
 	 *
 	 */
