@@ -77,7 +77,24 @@ public class FibonacciHeap
 	 */
 	public void delete(HeapNode x)
 	{
-		return; // should be replaced by student code
+		if (x == this.min){
+			deleteMin();
+			return;
+		}
+		if (x.child != null){
+			HeapNode minNext = this.min.next;
+			HeapNode childPrev = x.child.prev;
+			min.next = x.child;
+			x.child.prev = this.min;
+			childPrev.next = minNext;
+			minNext.prev = childPrev;
+		}
+		x.next.prev = x.prev;
+		x.prev.next = x.next;
+		x = null;
+		this.numInserts--;
+		this.size--;
+		return;
 	}
 
 
@@ -110,7 +127,18 @@ public class FibonacciHeap
 	 */
 	public void meld(FibonacciHeap heap2)
 	{
-		return; // should be replaced by student code
+		if (heap2.min == null || heap2.size == 0){
+			return;
+		}
+		if (this.min == null || this.size == 0){
+			this.min = heap2.min;
+		} else {
+
+		}
+		this.size += heap2.size;
+		this.totalCuts += heap2.totalCuts;
+		this.totalLinks += heap2.totalLinks;
+		return;
 	}
 
 	/**
@@ -133,6 +161,7 @@ public class FibonacciHeap
 	{
 		return (this.numInserts+this.totalCuts - this.totalLinks);
 	}
+
 
 	/**
 	 * Class implementing a node in a Fibonacci Heap.
