@@ -64,6 +64,7 @@ public class FibonacciHeap
 	 */
 	public HeapNode findMin()
 	{
+
 		return this.min;
 	}
 
@@ -77,22 +78,22 @@ public class FibonacciHeap
 		if (this.min == null) {
 			return; // Heap is empty
 		}
-		HeapNode z = this.min;
+		HeapNode cornetMin = this.min;
 
 		// Move each child of z into the root list
-		if (z.child != null) {
-			HeapNode c = z.child;
+		if (cornetMin.child != null) {
+			HeapNode c = cornetMin.child;
 			do {
 				HeapNode nextC = c.next;
 				// Detach c from z and add to root list
 				c.parent = null;
 				spliceIntoList(this.min, c);
 				c = nextC;
-			} while (c != z.child);
+			} while (c != cornetMin.child);
 		}
 
 		// Remove z from the root list
-		removeNodeFromList(z);
+		removeNodeFromList(cornetMin);
 		this.size--;
 
 		// If that was the only node, heap is now empty
@@ -100,7 +101,7 @@ public class FibonacciHeap
 			this.min = null;
 		} else {
 			// Arbitrarily set min to a root in the list, then consolidate
-			this.min = z.next;
+			this.min = cornetMin.next;
 			consolidate();
 		}
 	}
