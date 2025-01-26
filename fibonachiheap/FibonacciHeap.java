@@ -133,34 +133,34 @@ public class FibonacciHeap
 
 	/**
 	 *
-	 * Delete the x from the heap.
+	 * Delete the node from the heap.
 	 *
 	 */
-	public void delete(HeapNode x)
+	public void delete(HeapNode node)
 	{
-		if (x == null) {
+		if (node == null) {
 			return;
 		}
-		// If x is already the min, standard deleteMin
-		if (x == this.min) {
+		// If node is already the min, standard deleteMin
+		if (node == this.min) {
 			deleteMin();
 		} else {
-			// Force x's key to become smaller than current min
-			int diff = x.key - (this.min != null ? this.min.key - 1 : 1);
-			decreaseKey(x, diff);
+			// Force node key to become smaller than current min (why?)
+			int diff = node.key - (this.min != null ? this.min.key - 1 : 1);
+			decreaseKey(node, diff);
 
-			// Now x should be the min or at least in the root list
-			// Remove x from the root list directly, skipping consolidation
-			removeNodeFromList(x);
+			// Now node should be the min or at least in the root list
+			// Remove node from the root list directly, skipping consolidation
+			removeNodeFromList(node);
 			this.size--;
 
-			// If x was forcibly the 'min' pointer, we may need to reassign min
-			if (x == this.min) {
+			// If node was forcibly the 'min' pointer, we may need to reassign min
+			if (node == this.min) {
 				if (this.size == 0) {
 					this.min = null;
 				} else {
 					// Just pick an adjacent root. We do NOT do a full search for the actual min.
-					this.min = x.next;
+					this.min = node.next;
 				}
 			}
 		}
