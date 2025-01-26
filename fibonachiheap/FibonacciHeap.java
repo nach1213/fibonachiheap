@@ -1,4 +1,4 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 /**
  * FibonacciHeap
  *
@@ -8,15 +8,11 @@ package fibonachiheap;
 
 public class FibonacciHeap
 {
-	// ------------------- Required Fields From Skeleton ------------------- //
-
 	/**
 	 * A pointer to the current minimum node in the heap.
 	 * (Public per the skeleton requirement.)
 	 */
 	public HeapNode min;
-
-	// ------------------- Additional Internal Fields ---------------------- //
 
 	/** The total number of elements in the heap. */
 	private int size;
@@ -38,7 +34,6 @@ public class FibonacciHeap
 	}
 
 	/**
-	 * pre: key > 0
 	 *
 	 * Insert (key,info) into the heap and return the newly generated HeapNode.
 	 *
@@ -112,7 +107,6 @@ public class FibonacciHeap
 
 	/**
 	 *
-	 * pre: 0<diff<x.key
 	 *
 	 * Decrease the key of x by diff and fix the heap.
 	 *
@@ -445,6 +439,34 @@ public class FibonacciHeap
 			this.mark = false;
 			this.parent = null;
 			this.child = null;
+		}
+
+		public HeapNode getNext() {
+			return next;
+		}
+
+		public HeapNode getChild() {
+			return child;
+		}
+
+		public HeapNode getPrev() {
+			return prev;
+		}
+
+		public HeapNode getParent() {
+			return parent;
+		}
+
+		public int getKey() {
+			return key;
+		}
+
+		public int getRank() {
+			return rank;
+		}
+
+		public String getInfo() {
+			return info;
 		}
 	}
 }

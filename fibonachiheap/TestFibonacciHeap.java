@@ -1,4 +1,4 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 // Created by Ido Weinsteinת Yuval Ramot & Leah London Arazi
 
 // NOTE: This module requires implementation of the following getters:
