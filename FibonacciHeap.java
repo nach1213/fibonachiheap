@@ -8,15 +8,11 @@ package fibonachiheap;
  */
 public class FibonacciHeap
 {
-	// ------------------- Required Fields From Skeleton ------------------- //
-
 	/**
 	 * A pointer to the current minimum node in the heap.
 	 * (Public per the skeleton requirement.)
 	 */
 	public HeapNode min;
-
-	// ------------------- Additional Internal Fields ---------------------- //
 
 	/** The total number of elements in the heap. */
 	private int size;
@@ -38,7 +34,6 @@ public class FibonacciHeap
 	}
 
 	/**
-	 * pre: key > 0
 	 *
 	 * Insert (key,info) into the heap and return the newly generated HeapNode.
 	 *
@@ -84,7 +79,7 @@ public class FibonacciHeap
 		}
 		HeapNode z = this.min;
 
-		// Move each child of z into the root list
+		// Move each child of z into the root list ???
 		if (z.child != null) {
 			HeapNode c = z.child;
 			do {
@@ -104,7 +99,7 @@ public class FibonacciHeap
 		if (this.size == 0) {
 			this.min = null;
 		} else {
-			// Arbitrarily set min to a root in the list, then consolidate
+			// Arbitrarily set min to a root in the list, then consolidate ???
 			this.min = z.next;
 			consolidate();
 		}
@@ -112,7 +107,6 @@ public class FibonacciHeap
 
 	/**
 	 *
-	 * pre: 0<diff<x.key
 	 *
 	 * Decrease the key of x by diff and fix the heap.
 	 *
@@ -131,7 +125,7 @@ public class FibonacciHeap
 			cascadingCut(y);
 		}
 
-		// Possibly update global min
+		// Possibly update global min ???
 		if (this.min != null && x.key < this.min.key) {
 			this.min = x;
 		}
@@ -421,8 +415,6 @@ public class FibonacciHeap
 		node.prev = node;
 	}
 
-	// ------------------- Skeleton's Static HeapNode Class ------------------- //
-
 	/**
 	 * Class implementing a node in a Fibonacci Heap.
 	 */
@@ -439,8 +431,8 @@ public class FibonacciHeap
 		public HeapNode(int key, String info) {
 			this.key = key;
 			this.info = info;
-			this.next = this;
-			this.prev = this;
+			this.next = this; //???
+			this.prev = this; //???
 			this.rank = 0;
 			this.mark = false;
 			this.parent = null;
