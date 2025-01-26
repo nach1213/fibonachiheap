@@ -4,7 +4,7 @@ package fibonachiheap;
  * FibonacciHeap
  *
  * An implementation of Fibonacci heap over positive integers.
- *
+ *1
  */
 public class FibonacciHeap
 {
