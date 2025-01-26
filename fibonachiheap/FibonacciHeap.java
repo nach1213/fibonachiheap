@@ -142,5 +142,16 @@ public class FibonacciHeap
 		public HeapNode parent;
 		public int rank;
 		public boolean mark;
+
+		public HeapNode(int key, String info) {
+			this.key = key;
+			this.info = info;
+			this.child = null;
+			this.next = this;
+			this.prev = this;
+			this.parent = null;
+			this.rank = 0;
+			this.mark = false;
+		}
 	}
 }
