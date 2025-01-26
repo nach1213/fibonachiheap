@@ -8,7 +8,10 @@ package fibonachiheap.fibonachiheap;
  */
 public class FibonacciHeap
 {
-	public HeapNode min;
+	public HeapNode min; // Pointer to the minimum node
+	public int size; // Number of nodes in the heap
+	public int totalLinks; // Total number of links
+	public int totalCuts; // Total number of cuts
 
 	/**
 	 *
@@ -17,7 +20,10 @@ public class FibonacciHeap
 	 */
 	public FibonacciHeap()
 	{
-		// should be replaced by student code
+		this.min = null;
+		this.size = 0;
+		this.totalCuts = 0;
+		this.totalLinks = 0;
 	}
 
 	/**
