@@ -83,7 +83,6 @@ public class FibonacciHeap
 		if (cornetMin.child != null) {
 			HeapNode child = cornetMin.child;
 			do {
-				HeapNode nextC = child.next;
 				// Detach child from cornetMin and add to root list
 				child.parent = null;
 				spliceIntoList(this.min, child);
@@ -408,9 +407,7 @@ public class FibonacciHeap
 	private static void removeNodeFromList(HeapNode node) {
 		node.prev.next = node.next;
 		node.next.prev = node.prev;
-		// Make 'node' a singleton to avoid confusion
-		node.next = node;
-		node.prev = node;
+		node = null;
 	}
 
 	// ------------------- Skeleton's Static HeapNode Class ------------------- //

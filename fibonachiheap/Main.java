@@ -4,7 +4,7 @@
  * It runs a series of insert, findMin, deleteMin, decreaseKey, delete, meld, and so on,
  * printing out intermediate results.
  */
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 public class Main {
     public static void main(String[] args) {
         System.out.println("======== Fibonacci Heap Tester ========");
