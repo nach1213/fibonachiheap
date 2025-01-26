@@ -129,7 +129,7 @@ public class FibonacciHeap
 	 */
 	public int numTrees()
 	{
-		return 0; // should be replaced by student code
+		return (this.numInserts+this.totalCuts - this.totalLinks);
 	}
 
 	/**
