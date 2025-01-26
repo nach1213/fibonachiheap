@@ -1,4 +1,4 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 
 /**
  * FibonacciHeap
@@ -11,6 +11,7 @@ public class FibonacciHeap
 	public int size; // Number of nodes in the heap
 	public int totalLinks; // Total number of links
 	public int totalCuts; // Total number of cuts
+	public int numInserts; // Total number of inserts
 
 	/**
 	 *
@@ -23,6 +24,7 @@ public class FibonacciHeap
 		this.size = 0;
 		this.totalCuts = 0;
 		this.totalLinks = 0;
+		this.numInserts = 0;
 	}
 
 	/**
