@@ -1,4 +1,4 @@
-package fibonachiheap.fibonachiheap;
+package fibonachiheap;
 
 /**
  * FibonacciHeap
