@@ -243,8 +243,6 @@ public class FibonacciHeap
 		return count;
 	}
 
-	// --------------- Private Helper Methods --------------- //
-
 	/**
 	 * Consolidate the root list so that there is at most one root with any rank.
 	 */
