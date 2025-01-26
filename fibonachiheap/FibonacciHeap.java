@@ -1,4 +1,4 @@
-package fibonachiheap.fibonachiheap;
+package fibonachiheap;
 /**
  * FibonacciHeap
  * An implementation of Fibonacci heap over positive integers.
