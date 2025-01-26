@@ -86,7 +86,7 @@ public class FibonacciHeap
 	 */
 	public int totalLinks()
 	{
-		return 0; // should be replaced by student code
+		return this.totalLinks;
 	}
 
 
@@ -97,7 +97,7 @@ public class FibonacciHeap
 	 */
 	public int totalCuts()
 	{
-		return 0; // should be replaced by student code
+		return this.totalCuts;
 	}
 
 
