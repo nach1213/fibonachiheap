@@ -11,7 +11,7 @@ public class FibonacciHeap
 	public int size; // Number of nodes in the heap
 	public int totalLinks; // Total number of links
 	public int totalCuts; // Total number of cuts
-	public int numInserts; // Total number of inserts
+	public int numOfTrees; // Total number of trees
 
 	/**
 	 *
@@ -24,7 +24,7 @@ public class FibonacciHeap
 		this.size = 0;
 		this.totalCuts = 0;
 		this.totalLinks = 0;
-		this.numInserts = 0;
+		this.numOfTrees = 0;
 	}
 
 	/**
@@ -35,7 +35,21 @@ public class FibonacciHeap
 	 */
 	public HeapNode insert(int key, String info)
 	{
-		return null; // should be replaced by student code
+		HeapNode newNode = new HeapNode(key, info);
+		numOfTrees++;
+		size++;
+		if (this.min == null){
+			this.min = newNode;
+		}
+		HeapNode minNext = min.next;
+		this.min.next = newNode;
+		newNode.prev = this.min;
+		newNode.next = minNext;
+		minNext.prev = newNode;
+		if (this.min.key > newNode.key){
+			this.min = newNode;
+		}
+		return newNode;
 	}
 
 	/**
@@ -89,10 +103,13 @@ public class FibonacciHeap
 			childPrev.next = minNext;
 			minNext.prev = childPrev;
 		}
+		if (x.parent != null && x.parent.child == x){
+			x.parent.child = x.next;
+		}
+		numOfTrees += x.numOfChild;
 		x.next.prev = x.prev;
 		x.prev.next = x.next;
 		x = null;
-		this.numInserts--;
 		this.size--;
 		return;
 	}
@@ -159,7 +176,7 @@ public class FibonacciHeap
 	 */
 	public int numTrees()
 	{
-		return (this.numInserts+this.totalCuts - this.totalLinks);
+		return numOfTrees;
 	}
 
 
@@ -176,6 +193,7 @@ public class FibonacciHeap
 		public HeapNode parent;
 		public int rank;
 		public boolean mark;
+		public int numOfChild;
 
 		public HeapNode(int key, String info) {
 			this.key = key;
@@ -186,6 +204,7 @@ public class FibonacciHeap
 			this.parent = null;
 			this.rank = 0;
 			this.mark = false;
+			this.numOfChild = 0;
 		}
 	}
 }
