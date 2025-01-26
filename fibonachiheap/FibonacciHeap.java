@@ -1,22 +1,17 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 /**
  * FibonacciHeap
- *
  * An implementation of Fibonacci heap over positive integers.
  *
  */
 
 public class FibonacciHeap
 {
-	// ------------------- Required Fields From Skeleton ------------------- //
-
 	/**
 	 * A pointer to the current minimum node in the heap.
 	 * (Public per the skeleton requirement.)
 	 */
 	public HeapNode min;
-
-	// ------------------- Additional Internal Fields ---------------------- //
 
 	/** The total number of elements in the heap. */
 	private int size;
@@ -38,7 +33,6 @@ public class FibonacciHeap
 	}
 
 	/**
-	 * pre: key > 0
 	 *
 	 * Insert (key,info) into the heap and return the newly generated HeapNode.
 	 *
@@ -69,6 +63,7 @@ public class FibonacciHeap
 	 */
 	public HeapNode findMin()
 	{
+
 		return this.min;
 	}
 
@@ -82,22 +77,22 @@ public class FibonacciHeap
 		if (this.min == null) {
 			return; // Heap is empty
 		}
-		HeapNode z = this.min;
+		HeapNode cornetMin = this.min;
 
-		// Move each child of z into the root list
-		if (z.child != null) {
-			HeapNode c = z.child;
+		// Move each child of cornetMin into the root list
+		if (cornetMin.child != null) {
+			HeapNode child = cornetMin.child;
 			do {
-				HeapNode nextC = c.next;
-				// Detach c from z and add to root list
-				c.parent = null;
-				spliceIntoList(this.min, c);
-				c = nextC;
-			} while (c != z.child);
+				HeapNode nextC = child.next;
+				// Detach child from cornetMin and add to root list
+				child.parent = null;
+				spliceIntoList(this.min, child);
+				child = child.next;
+			} while (child != cornetMin.child);
 		}
 
-		// Remove z from the root list
-		removeNodeFromList(z);
+		// Remove cornetMin from the root list
+		removeNodeFromList(cornetMin);
 		this.size--;
 
 		// If that was the only node, heap is now empty
@@ -105,68 +100,67 @@ public class FibonacciHeap
 			this.min = null;
 		} else {
 			// Arbitrarily set min to a root in the list, then consolidate
-			this.min = z.next;
+			this.min = cornetMin.next;
 			consolidate();
 		}
 	}
 
 	/**
 	 *
-	 * pre: 0<diff<x.key
 	 *
 	 * Decrease the key of x by diff and fix the heap.
 	 *
 	 */
-	public void decreaseKey(HeapNode x, int diff)
+	public void decreaseKey(HeapNode node, int diff)
 	{
-		if (x == null || diff <= 0) {
+		if (node == null || diff <= 0) {
 			return;
 		}
-		x.key -= diff;
-		HeapNode y = x.parent;
+		node.key -= diff;
+		HeapNode parent = node.parent;
 
-		// If x now violates the heap property with respect to its parent
-		if (y != null && x.key < y.key) {
-			cut(x, y);
-			cascadingCut(y);
+		// If node now violates the heap property with respect to its parent
+		if (parent != null && node.key < parent.key) {
+			cut(node, parent);
+			cascadingCut(parent);
 		}
 
 		// Possibly update global min
-		if (this.min != null && x.key < this.min.key) {
-			this.min = x;
+		if (this.min != null && node.key < this.min.key) {
+			this.min = node;
 		}
 	}
 
 	/**
 	 *
-	 * Delete the x from the heap.
+	 * Delete the node from the heap.
 	 *
 	 */
-	public void delete(HeapNode x)
+	public void delete(HeapNode node)
 	{
-		if (x == null) {
+		if (node == null) {
 			return;
 		}
-		// If x is already the min, standard deleteMin
-		if (x == this.min) {
+		// If node is already the min, standard deleteMin
+		if (node == this.min) {
 			deleteMin();
 		} else {
-			// Force x's key to become smaller than current min
-			int diff = x.key - (this.min != null ? this.min.key - 1 : 1);
-			decreaseKey(x, diff);
+			// Force node key to become smaller than current min (why?)
+			int diff = node.key - (this.min != null ? this.min.key - 1 : 1);
+			decreaseKey(node, diff);
 
-			// Now x should be the min or at least in the root list
-			// Remove x from the root list directly, skipping consolidation
-			removeNodeFromList(x);
+			// Now node should be the min or at least in the root list
+			// Remove node from the root list directly, skipping consolidation
+			removeNodeFromList(node);
 			this.size--;
 
-			// If x was forcibly the 'min' pointer, we may need to reassign min
-			if (x == this.min) {
+			// If node was forcibly the 'min' pointer, we may need to reassign min
+			if (node == this.min) {
 				if (this.size == 0) {
 					this.min = null;
 				} else {
 					// Just pick an adjacent root. We do NOT do a full search for the actual min.
-					this.min = x.next;
+					this.min = node.next;
 				}
 			}
 		}
@@ -248,8 +242,6 @@ public class FibonacciHeap
 		} while (current != this.min);
 		return count;
 	}
-
-	// --------------- Private Helper Methods --------------- //
 
 	/**
 	 * Consolidate the root list so that there is at most one root with any rank.
@@ -445,6 +437,34 @@ public class FibonacciHeap
 			this.mark = false;
 			this.parent = null;
 			this.child = null;
+		}
+
+		public HeapNode getNext() {
+			return next;
+		}
+
+		public HeapNode getChild() {
+			return child;
+		}
+
+		public HeapNode getPrev() {
+			return prev;
+		}
+
+		public HeapNode getParent() {
+			return parent;
+		}
+
+		public int getKey() {
+			return key;
+		}
+
+		public int getRank() {
+			return rank;
+		}
+
+		public String getInfo() {
+			return info;
 		}
 	}
 }
