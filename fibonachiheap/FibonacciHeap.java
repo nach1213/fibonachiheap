@@ -77,7 +77,10 @@ public class FibonacciHeap
     public void decreaseKey(HeapNode x, int diff)
     {
         x.key -= diff;
-        if (x.key < x.parent.key){
+        if (x.parent == null){
+            return;
+        }
+        else if (x.key < x.parent.key){
             if (x.parent.child == x && x.next != x){
                 x.parent.child = x.prev;
                 x.parent.rank = x.parent.child.rank+1;
@@ -86,7 +89,7 @@ public class FibonacciHeap
                 x.parent.child = null;
                 x.parent = null;
             }
-            //cut and check if mark and then mark id needed
+            cut(x);
         }
         return; // should be replaced by student code
     }
@@ -196,6 +199,26 @@ public class FibonacciHeap
         return numOfTrees;
     }
 
+    /**
+     *
+     * cut the node and then check the parent and cut if mark if not mark
+     */
+    public void cut(HeapNode nodeToCut){
+        if (nodeToCut.parent == null){
+            return;
+        }
+        nodeToCut.next.prev = nodeToCut.prev;
+        nodeToCut.prev.next = nodeToCut.next;
+        nodeToCut.next = min.next;
+        nodeToCut.next.prev = nodeToCut;
+        min.next = nodeToCut;
+        nodeToCut.prev = min;
+        if (nodeToCut.parent.mark){
+            cut(nodeToCut.parent);
+        } else {
+            nodeToCut.parent.mark = true;
+        }
+    }
 
     /**
      * Class implementing a node in a Fibonacci Heap.
