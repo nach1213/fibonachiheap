@@ -110,6 +110,7 @@ public class FibonacciHeap
         }
         if (x.parent != null && x.parent.child == x){
             x.parent.child = x.next;
+            //x.parent.rank =
         }
         numOfTrees += x.numOfChild;
         x.next.prev = x.prev;
