@@ -139,6 +139,9 @@ public class FibonacciHeap
     public void decreaseKey(HeapNode x, int diff)
     {
         x.key -= diff;
+        if (x.key < min.key){
+            this.min = x;
+        }
         if (x.parent == null) {
             return;
         }
@@ -149,9 +152,6 @@ public class FibonacciHeap
                 x.parent = null;
             }
             cut(x);
-        }
-        if (x.key < min.key){
-            min = x;
         }
         return;
     }
@@ -167,6 +167,7 @@ public class FibonacciHeap
             deleteMin();
             return;
         }
+        size--;
         int diff = x.key + Math.abs(min.key);
             x.key -= diff;
             if (x.parent == null) {
