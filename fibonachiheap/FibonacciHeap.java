@@ -78,6 +78,12 @@ public class FibonacciHeap
     {
         x.key -= diff;
         if (x.key < x.parent.key){
+            if (x.parent.child == x && x.next != x){
+                x.parent.child = x.next;
+            } else if (x.parent.child == x && x.next == x) {
+                x.parent.child = null;
+                x.parent = null;
+            }
             //cut and check if mark and then mark id needed
         }
         return; // should be replaced by student code
@@ -154,6 +160,9 @@ public class FibonacciHeap
             minNext.prev = heap2.min.prev.next;
             this.min.next = heap2.min;
             heap2.min.prev = this.min;
+        }
+        if (this.min.key > heap2.min.key){
+
         }
         this.size += heap2.size;
         this.totalCuts += heap2.totalCuts;
