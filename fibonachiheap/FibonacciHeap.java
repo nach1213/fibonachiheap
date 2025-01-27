@@ -76,6 +76,10 @@ public class FibonacciHeap
      */
     public void decreaseKey(HeapNode x, int diff)
     {
+        x.key -= diff;
+        if (x.key < x.parent.key){
+            //cut and check if mark and then mark id needed
+        }
         return; // should be replaced by student code
     }
 
