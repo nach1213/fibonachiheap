@@ -66,13 +66,25 @@ public class FibonacciHeap
     {
         if (min.child != null){
             min.next.prev = min.child;
+            min.child.next = min.next;
             min.prev.next = min.child.prev;
+            min.child.prev.prev = min.prev;
         } else {
             min.next.prev = min.prev;
             min.prev.next = min.next;
         }
+        //find the new min
+        HeapNode cornet = min.next;
+        HeapNode stop = min.next;
+        min = cornet;
+        size--;
+        do {
+            cornet = cornet.next;
+            if (cornet.key < min.key){
+                min = cornet;
+            }
+        } while (cornet != stop);
         return;
-
     }
 
     /**
