@@ -80,7 +80,7 @@ public class FibonacciHeap
         if (x.key < x.parent.key){
             if (x.parent.child == x && x.next != x){
                 x.parent.child = x.prev;
-                x.parent.rank = x.parent.child.rank;
+                x.parent.rank = x.parent.child.rank+1;
             } else if (x.parent.child == x && x.next == x) {
                 x.parent.rank = 0;
                 x.parent.child = null;
