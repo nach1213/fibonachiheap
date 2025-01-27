@@ -1,5 +1,8 @@
 package fibonachiheap.fibonachiheap;
 
+import java.util.List;
+import java.util.Map;
+
 public class FibonacciHeap
 {
     public HeapNode min; // Pointer to the minimum node
@@ -78,12 +81,26 @@ public class FibonacciHeap
         HeapNode stop = min.next;
         min = cornet;
         size--;
+        HeapNode[] lstOfTree = new HeapNode[numOfTrees];
         do {
+            lstOfTree[lstOfTree.length - 1] = cornet;
             cornet = cornet.next;
             if (cornet.key < min.key){
                 min = cornet;
             }
         } while (cornet != stop);
+        //mapping all the tree to work more easily
+        Map<Integer, List<HeapNode>> map = new java.util.HashMap<>(Map.of());
+        for (HeapNode heapNode: lstOfTree){
+            if (map.containsKey(heapNode.rank)) {
+                map.keySet().add(heapNode.rank);
+                map.put(heapNode.rank, List.of(heapNode));
+            } else {
+                List<HeapNode> lst = map.get(heapNode.rank);
+                lst.add(heapNode);
+                map.put(heapNode.rank, lst);
+            }
+        }
         return;
     }
 
