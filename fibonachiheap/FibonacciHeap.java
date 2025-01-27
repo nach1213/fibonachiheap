@@ -89,6 +89,7 @@ public class FibonacciHeap
                 min = cornet;
             }
         } while (cornet != stop);
+        HeapNode[] lstBySize = new HeapNode[(int)Math.floor(Math.log(size)/Math.log(2))];
         for (HeapNode heapNode: lstOfTree){
 
         }
