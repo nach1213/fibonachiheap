@@ -89,7 +89,7 @@ public class FibonacciHeap
                 min = cornet;
             }
         } while (cornet != stop);
-        //mapping all the tree to work more easily
+        //mapping all the tree by rank to work more easily
         Map<Integer, List<HeapNode>> map = new java.util.HashMap<>(Map.of());
         for (HeapNode heapNode: lstOfTree){
             if (map.containsKey(heapNode.rank)) {
@@ -101,6 +101,7 @@ public class FibonacciHeap
                 map.put(heapNode.rank, lst);
             }
         }
+
         return;
     }
 
