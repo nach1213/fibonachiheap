@@ -91,7 +91,12 @@ public class FibonacciHeap
         } while (cornet != stop);
         HeapNode[] lstBySize = new HeapNode[(int)Math.ceil(Math.log(size)/Math.log(2))];
         for (HeapNode heapNode: lstOfTree){
-
+            HeapNode newHeapNode = heapNode;
+            while (lstBySize[newHeapNode.rank] != null){
+                newHeapNode = merge(newHeapNode,lstBySize[newHeapNode.rank]);
+                lstBySize[newHeapNode.rank] = null;
+            }
+            lstBySize[newHeapNode.rank] = newHeapNode;
         }
         return;
     }
