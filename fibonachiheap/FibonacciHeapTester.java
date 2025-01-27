@@ -2,6 +2,8 @@ package fibonachiheap.fibonachiheap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+/*comment
+*/
 
 /**
  * A robust test class for a FibonacciHeap.
