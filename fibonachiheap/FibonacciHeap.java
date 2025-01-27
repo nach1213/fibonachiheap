@@ -225,6 +225,7 @@ public class FibonacciHeap
         if (heapNode.parent == null) {
             return true;
         }
+        heapNode.parent.numOfChild--;
         if (heapNode.parent.child == heapNode && heapNode.prev != heapNode) {
             heapNode.parent.child = heapNode.prev;
             heapNode.parent.rank = heapNode.child.rank + 1;
