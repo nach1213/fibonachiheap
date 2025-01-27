@@ -109,8 +109,8 @@ public class FibonacciHeap
             minNext.prev = childPrev;
         }
         if (x.parent != null && x.parent.child == x){
-            x.parent.child = x.next;
-            //x.parent.rank =
+            x.parent.child = x.prev;
+            x.parent.rank = x.parent.child.rank+1;
         }
         numOfTrees += x.numOfChild;
         x.next.prev = x.prev;
