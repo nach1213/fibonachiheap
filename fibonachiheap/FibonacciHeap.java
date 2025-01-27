@@ -1,4 +1,4 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 
 public class FibonacciHeap
 {
@@ -163,6 +163,9 @@ public class FibonacciHeap
      */
     public void delete(HeapNode x)
     {
+        if (min == null){
+            return;
+        }
         if (x == this.min) {
             deleteMin();
             return;
