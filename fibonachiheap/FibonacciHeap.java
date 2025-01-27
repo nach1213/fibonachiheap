@@ -81,11 +81,8 @@ public class FibonacciHeap
             return;
         }
         else if (x.key < x.parent.key) {
-            if (x.parent.child == x && x.next != x) {
-                x.parent.child = x.prev;
-                x.parent.rank = x.parent.child.rank+1;
-            } else if (x.parent.child == x && x.next == x) {
-                x.parent.rank = 0;
+            rankAdjustment(x);
+            if (x.parent.child == x && x.next == x) {
                 x.parent.child = null;
                 x.parent = null;
             }
@@ -113,11 +110,8 @@ public class FibonacciHeap
             childPrev.next = minNext;
             minNext.prev = childPrev;
         }
-        if (x.parent != null && x.parent.child == x) {
-            x.parent.child = x.prev;
-            x.parent.rank = x.parent.child.rank+1;
-        } else {
-            this.numOfTrees--;
+        if(rankAdjustment(x)){
+            numOfTrees--;
         }
         this.numOfTrees += x.numOfChild;
         x.next.prev = x.prev;
@@ -204,6 +198,7 @@ public class FibonacciHeap
      * cut the node and then check the parent and cut if mark if not mark
      */
     public void cut(HeapNode nodeToCut) {
+        nodeToCut.mark = false;
         if (nodeToCut.parent == null) {
             return;
         }
@@ -213,16 +208,30 @@ public class FibonacciHeap
         nodeToCut.next.prev = nodeToCut;
         min.next = nodeToCut;
         nodeToCut.prev = min;
-        if (nodeToCut.parent.child == nodeToCut) {
-            nodeToCut.parent.child = nodeToCut.prev;
-            nodeToCut.parent.rank = nodeToCut.child.rank+1;
-        }
+        rankAdjustment(nodeToCut);
         if (nodeToCut.parent.mark) {
             cut(nodeToCut.parent);
         } else {
             nodeToCut.parent.mark = true;
         }
         nodeToCut.parent = null;
+    }
+
+    /**
+     * adjusting the rank of the parents of the node before moving him
+     *
+     */
+    public boolean rankAdjustment(HeapNode heapNode){
+        if (heapNode.parent == null) {
+            return true;
+        }
+        if (heapNode.parent.child == heapNode && heapNode.prev != heapNode) {
+            heapNode.parent.child = heapNode.prev;
+            heapNode.parent.rank = heapNode.child.rank + 1;
+        } else if (heapNode.parent.child == heapNode && heapNode.prev == heapNode) {
+            heapNode.parent.rank = 0;
+        }
+        return false;
     }
 
     /**
