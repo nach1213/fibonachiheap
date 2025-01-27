@@ -79,8 +79,10 @@ public class FibonacciHeap
         x.key -= diff;
         if (x.key < x.parent.key){
             if (x.parent.child == x && x.next != x){
-                x.parent.child = x.next;
+                x.parent.child = x.prev;
+                x.parent.rank = x.parent.child.rank;
             } else if (x.parent.child == x && x.next == x) {
+                x.parent.rank = 0;
                 x.parent.child = null;
                 x.parent = null;
             }
@@ -103,7 +105,7 @@ public class FibonacciHeap
         if (x.child != null){
             HeapNode minNext = this.min.next;
             HeapNode childPrev = x.child.prev;
-            min.next = x.child;
+            this.min.next = x.child;
             x.child.prev = this.min;
             childPrev.next = minNext;
             minNext.prev = childPrev;
@@ -111,8 +113,10 @@ public class FibonacciHeap
         if (x.parent != null && x.parent.child == x){
             x.parent.child = x.prev;
             x.parent.rank = x.parent.child.rank+1;
+        } else {
+            this.numOfTrees--;
         }
-        numOfTrees += x.numOfChild;
+        this.numOfTrees += x.numOfChild;
         x.next.prev = x.prev;
         x.prev.next = x.next;
         x = null;
