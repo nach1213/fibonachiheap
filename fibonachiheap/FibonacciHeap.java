@@ -1,4 +1,4 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 
 public class FibonacciHeap
 {
@@ -64,6 +64,14 @@ public class FibonacciHeap
      */
     public void deleteMin()
     {
+        if (size == 1){
+            min = null;
+            size--;
+            return;
+        }
+        if (min == null){
+            return;
+        }
         if (min.child != null){
             min.next.prev = min.child;
             min.child.next = min.next;
@@ -77,7 +85,6 @@ public class FibonacciHeap
         HeapNode cornet = min.next;
         HeapNode stop = min.next;
         min = cornet;
-        size--;
         HeapNode[] lstOfTree = new HeapNode[numOfTrees];
         do {
             lstOfTree[lstOfTree.length - 1] = cornet;
@@ -86,8 +93,11 @@ public class FibonacciHeap
                 min = cornet;
             }
         } while (cornet != stop);
-        HeapNode[] lstBySize = new HeapNode[(int)Math.ceil(Math.log(size)/Math.log(2))];
-        for (HeapNode heapNode: lstOfTree){
+        HeapNode[] lstBySize = new HeapNode[(int) (Math.ceil(Math.log(size)/Math.log(2))+1)];
+        for (HeapNode heapNode: lstOfTree) {
+            if (heapNode == null){
+                continue;
+            }
             HeapNode newHeapNode = heapNode;
             while (lstBySize[newHeapNode.rank] != null){
                 newHeapNode = merge(newHeapNode,lstBySize[newHeapNode.rank]);
@@ -95,6 +105,7 @@ public class FibonacciHeap
             }
             lstBySize[newHeapNode.rank] = newHeapNode;
         }
+        size--;
         return;
     }
 	public HeapNode merge(HeapNode node1, HeapNode node2){
