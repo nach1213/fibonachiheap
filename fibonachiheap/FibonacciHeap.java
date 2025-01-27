@@ -1,4 +1,4 @@
-package fibonachiheap.fibonachiheap;
+package fibonachiheap;
 
 import java.util.List;
 import java.util.Map;
@@ -95,7 +95,28 @@ public class FibonacciHeap
         }
         return;
     }
+	public HeapNode merge(HeapNode node1, HeapNode node2){
+		if(node1.key > node2.key){
+			return merge(node2,node1);
+		}
+		numOfTrees--;
+		totalLinks++;
+		node2.parent = node1;
+		node1.rank++;
 
+		if (node1.child == null)node1.child = node2;
+		node2.next = node1.child;
+		node2.prev = node1.child.prev;
+		node1.child.prev.next = node2;
+		node1.child.prev = node2;
+
+		HeapNode start = node1.child, end = start.prev;
+
+		node2.next = node1.child;
+		node1.child.prev.next = node2;
+
+		return node1;
+	}
     /**
      *
      * pre: 0<diff<x.key
