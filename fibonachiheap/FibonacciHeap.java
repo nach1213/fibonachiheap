@@ -214,7 +214,7 @@ public class FibonacciHeap
         min.next = nodeToCut;
         nodeToCut.prev = min;
         if (nodeToCut.parent.child == nodeToCut) {
-            nodeToCut.parent.child =nodeToCut.prev;
+            nodeToCut.parent.child = nodeToCut.prev;
             nodeToCut.parent.rank = nodeToCut.child.rank+1;
         }
         if (nodeToCut.parent.mark) {
