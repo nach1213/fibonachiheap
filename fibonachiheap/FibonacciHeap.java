@@ -121,7 +121,10 @@ public class FibonacciHeap
             }
             cut(x);
         }
-        return; // should be replaced by student code
+        if (x.key < min.key){
+            min = x;
+        }
+        return;
     }
 
     /**
@@ -135,24 +138,30 @@ public class FibonacciHeap
             deleteMin();
             return;
         }
-        if (x.child != null) {
-            HeapNode minNext = this.min.next;
-            HeapNode childPrev = x.child.prev;
-            this.min.next = x.child;
-            x.child.prev = this.min;
-            childPrev.next = minNext;
-            minNext.prev = childPrev;
+        int diff = x.key + Math.abs(min.key);
+            x.key -= diff;
+            if (x.parent == null) {
+                if (x.child == null){
+                    x.next.prev = x.prev;
+                    x.prev.next = x.next;
+                    return;
+                }
+                min.next.prev = x.child.prev;
+                x.child.prev.next = min.next;
+                x.child.prev = min;
+                min.next = x.child;
+                x = null;
+                return;
+            }
+            else if (x.key < x.parent.key) {
+                rankAdjustment(x);
+                if (x.parent.child == x && x.next == x) {
+                    x.parent.child = null;
+                    x.parent = null;
+                }
+                cut(x);
+            }
         }
-        if(rankAdjustment(x)){
-            numOfTrees--;
-        }
-        this.numOfTrees += x.numOfChild;
-        x.next.prev = x.prev;
-        x.prev.next = x.next;
-        x = null;
-        this.size--;
-        return;
-    }
 
 
     /**
