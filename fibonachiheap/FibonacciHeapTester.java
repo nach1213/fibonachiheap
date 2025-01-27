@@ -24,6 +24,7 @@ public class FibonacciHeapTester {
     private static final long SEED          = 12345L;   // seed for reproducibility (optional)
 
     public static void main(String[] args) {
+        testSize();
         testBasicOperations();
         testLargeInsertDelete();
         testRandomOperations();
@@ -101,6 +102,16 @@ public class FibonacciHeapTester {
      *    on a single heap. Keep track of all inserted keys to find the global min
      *    for verification and track size carefully.
      */
+    public static void print_roots(FibonacciHeap my_heap){
+
+        FibonacciHeap.HeapNode current = my_heap.min;
+        if(current == null)return;
+        do {
+            System.out.println(current.key);
+            current = current.next;
+        }
+        while(current != my_heap.min);
+    }
     private static void testRandomOperations() {
         System.out.println("[TEST] Random mixed operations...");
 
@@ -109,6 +120,8 @@ public class FibonacciHeapTester {
 
         // We'll keep references to the nodes we insert
         List<FibonacciHeap.HeapNode> allNodes = new ArrayList<>();
+
+
 
         for (int i = 0; i < NUM_RANDOM_OPS; i++) {
             int op = rand.nextInt(4); // 0..3
@@ -151,7 +164,10 @@ public class FibonacciHeapTester {
                         FibonacciHeap.HeapNode node = pickRandomNode(rand, allNodes, heap);
                         if (node != null) {
                             int oldSize = heap.size();
+                            print_roots(heap);
+                            System.out.println("finished");
                             heap.delete(node);
+
                             check(heap.size() == oldSize - 1,
                                     "Size mismatch after delete");
                             // remove from allNodes so we don't keep a reference to an invalid node
@@ -259,6 +275,55 @@ public class FibonacciHeapTester {
     private static void check(boolean condition, String message) {
         if (!condition) {
             throw new AssertionError("TEST FAILED: " + message);
+        }
+    }
+    public static void testSize() {
+        FibonacciHeap heap = new FibonacciHeap();
+
+        // 1) Initially, an empty heap should have size = 0
+        assertEquals("Empty heap should have size 0", 0, heap.size());
+
+        // 2) Insert multiple elements, checking size increment
+        final int N = 5;
+        for (int i = 1; i <= N; i++) {
+            heap.insert(i, "val" + i);
+            assertEquals("After inserting " + i + " elements", i, heap.size());
+        }
+
+        // 3) Delete the minimum and check size
+        heap.deleteMin(); // removes the element with the smallest key
+        assertEquals("After deleteMin, size should be N-1", N - 1, heap.size());
+
+        // 4) Insert more elements
+        heap.insert(100, "hundred");
+        heap.insert(50, "fifty");
+        assertEquals("After inserting two more elements", (N - 1) + 2, heap.size());
+
+        // 5) Delete a non-minimal node (for instance, the node with key=100 if we find it)
+        //    We'll just assume we inserted a reference or do a loop of deleteMin for demonstration:
+        heap.deleteMin(); // remove min (which might be smaller than 50)
+        int sizeAfterDelMin = heap.size();
+        if (sizeAfterDelMin != (N - 1) + 2 - 1) {
+            throw new AssertionError("After second deleteMin, size should be " + ((N - 1) + 2 - 1)
+                    + ", but got " + sizeAfterDelMin);
+        }
+
+        // Optionally, do more checks or remove everything until empty
+        // Just for demonstration, remove all until empty:
+        while (heap.size()!=0) {
+            heap.deleteMin();
+        }
+        assertEquals("Heap should be empty again", 0, heap.size());
+    }
+
+    /**
+     * A simple assertion helper that throws an AssertionError if actual != expected.
+     */
+    private static void assertEquals(String message, int expected, int actual) {
+        if (expected != actual) {
+            throw new AssertionError(
+                    message + " - Expected: " + expected + ", but got: " + actual
+            );
         }
     }
 }
