@@ -213,11 +213,16 @@ public class FibonacciHeap
         nodeToCut.next.prev = nodeToCut;
         min.next = nodeToCut;
         nodeToCut.prev = min;
+        if (nodeToCut.parent.child == nodeToCut){
+            nodeToCut.parent.child =nodeToCut.prev;
+            nodeToCut.parent.rank = nodeToCut.child.rank+1;
+        }
         if (nodeToCut.parent.mark){
             cut(nodeToCut.parent);
         } else {
             nodeToCut.parent.mark = true;
         }
+        nodeToCut.parent = null;
     }
 
     /**
