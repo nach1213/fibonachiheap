@@ -162,7 +162,7 @@ public class FibonacciHeap
             heap2.min.prev = this.min;
         }
         if (this.min.key > heap2.min.key){
-
+            this.min = heap2.min;
         }
         this.size += heap2.size;
         this.totalCuts += heap2.totalCuts;
