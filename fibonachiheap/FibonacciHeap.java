@@ -64,7 +64,14 @@ public class FibonacciHeap
      */
     public void deleteMin()
     {
-        return; // should be replaced by student code
+        if (min.child != null){
+            min.next.prev = min.child;
+            min.prev.next = min.child.prev;
+        } else {
+            min.next.prev = min.prev;
+            min.prev.next = min.next;
+        }
+        return;
 
     }
 
