@@ -1,8 +1,5 @@
 package fibonachiheap;
 
-import java.util.List;
-import java.util.Map;
-
 public class FibonacciHeap
 {
     public HeapNode min; // Pointer to the minimum node
