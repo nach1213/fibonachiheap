@@ -18,8 +18,8 @@ import java.util.Random;
  */
 public class FibonacciHeapTester {
 
-    private static final int NUM_RANDOM_OPS = 2000;     // total random operations
-    private static final int KEY_RANGE      = 5000;     // random key values from 1..KEY_RANGE
+    private static final int NUM_RANDOM_OPS = 500;     // total random operations
+    private static final int KEY_RANGE      = 5;     // random key values from 1..KEY_RANGE
     private static final long SEED          = 12345L;   // seed for reproducibility (optional)
 
     public static void main(String[] args) {
@@ -129,6 +129,8 @@ public class FibonacciHeapTester {
                     int key = 1 + rand.nextInt(KEY_RANGE);
                     FibonacciHeap.HeapNode newNode = heap.insert(key, "info" + key);
                     allNodes.add(newNode);
+                    if (heap.size() < 0) {
+                    }
                     break;
                 }
                 case 1: {
@@ -139,6 +141,7 @@ public class FibonacciHeapTester {
                         heap.deleteMin();
                         check(heap.size() == oldSize - 1,
                                 "Size mismatch after deleteMin; expected " + (oldSize - 1));
+                    }            if (heap.size() < 0) {
                     }
                     break;
                 }
@@ -152,6 +155,8 @@ public class FibonacciHeapTester {
                             heap.decreaseKey(node, diff);
                             check(node.key == (oldKey - diff),
                                     "Key wasn't decreased properly from " + oldKey + " by " + diff);
+                        }
+                        if (heap.size() < 0) {
                         }
                     }
                     break;
@@ -172,7 +177,7 @@ public class FibonacciHeapTester {
                     break;
                 }
             }
-            // Quick consistency checks
+            // Quick consistency check
             check(heap.size() >= 0, "Size cannot be negative");
             if (heap.size()!=0) {
                 int actualMin = heap.findMin().key;

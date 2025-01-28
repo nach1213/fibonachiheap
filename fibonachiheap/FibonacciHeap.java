@@ -64,6 +64,7 @@ public class FibonacciHeap
      */
     public void deleteMin()
     {
+        numOfTrees--;
         if (size == 1 || size == 0){
             min = null;
             size = 0;
@@ -128,7 +129,7 @@ public class FibonacciHeap
 
 		node2.next = node1.child;
 		node1.child.prev.next = node2;
-
+        node2.parent = node1;
 		return node1;
 	}
     /**
@@ -160,6 +161,7 @@ public class FibonacciHeap
                 x.parent = null;
             }
             cut(x);
+            numOfTrees++;
         }
         return;
     }
@@ -182,6 +184,7 @@ public class FibonacciHeap
         int diff = x.key + Math.abs(min.key);
             x.key -= diff;
             if (x.parent == null) {
+                numOfTrees--;
                 if (x.child == null){
                     x.next.prev = x.prev;
                     x.prev.next = x.next;
@@ -249,7 +252,7 @@ public class FibonacciHeap
         if (this.min.key > heap2.min.key) {
             this.min = heap2.min;
         }
-        this.size += heap2.size;
+        this.size += Math.abs(heap2.size);
         this.totalCuts += heap2.totalCuts;
         this.totalLinks += heap2.totalLinks;
         heap2.size = 0;
@@ -309,12 +312,13 @@ public class FibonacciHeap
             return;
         }
         heapNode.parent.numOfChild--;
-        if (heapNode.parent.child == heapNode && heapNode.prev != heapNode) {
+        heapNode.parent.rank = heapNode.parent.numOfChild;
+        /*if (heapNode.parent.child == heapNode && heapNode.prev != heapNode) {
             heapNode.parent.child = heapNode.prev;
             heapNode.parent.rank = heapNode.child.rank + 1;
         } else if (heapNode.parent.child == heapNode && heapNode.prev == heapNode) {
             heapNode.parent.rank = 0;
-        }
+        }*/
     }
 
     /**
