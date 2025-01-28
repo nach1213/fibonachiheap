@@ -64,7 +64,6 @@ public class FibonacciHeap
      */
     public void deleteMin()
     {
-        numOfTrees--;
         if (size == 1 || size == 0){
             min = null;
             size = 0;
@@ -73,6 +72,7 @@ public class FibonacciHeap
         if (min == null){
             return;
         }
+        numOfTrees--;
         if (min.child != null){
             min.next.prev = min.child;
             min.child.next = min.next;
@@ -86,40 +86,51 @@ public class FibonacciHeap
         HeapNode cornet = min.next;
         HeapNode stop = min.next;
         min = cornet;
-        HeapNode[] lstOfTree = new HeapNode[numOfTrees];
+        HeapNode[] lstOfTree = new HeapNode[size];
+        int i=0;
         do {
-            lstOfTree[lstOfTree.length - 1] = cornet;
+            lstOfTree[i] = cornet;
+            cornet.mark = false;
+            i++;
             cornet = cornet.next;
             if (cornet.key < min.key){
                 min = cornet;
             }
-        } while (cornet != stop);
+        } while (cornet != stop && i < size);
 
-        HeapNode[] lstBySize = new HeapNode[(int)((Math.ceil(Math.log(this.size)/Math.log(2)))+1)];
-        for (HeapNode heapNode: lstOfTree) {
+        HeapNode[] lstBySize = new HeapNode[(int) (Math.log(size)/Math.log(2)+1)];
+        for (int j=0; j<size; j++) {
+            HeapNode heapNode = lstOfTree[j];
             if (heapNode == null){
                 continue;
             }
             HeapNode newHeapNode = heapNode;
+            if (newHeapNode.rank+1 >= (int) (Math.log(size)/Math.log(2))){
+                System.out.println(newHeapNode.rank);
+            }
             while (lstBySize[newHeapNode.rank] != null){
                 newHeapNode = merge(newHeapNode,lstBySize[newHeapNode.rank]);
-                lstBySize[newHeapNode.rank] = null;
+                lstBySize[newHeapNode.rank-1] = null;
             }
             lstBySize[newHeapNode.rank] = newHeapNode;
         }
+        System.out.println(numOfTrees+"aaa");
         size--;
         return;
     }
 	public HeapNode merge(HeapNode node1, HeapNode node2){
 		if(node1.key > node2.key){
-			return merge(node2,node1);
+            return merge(node2,node1);
 		}
 		numOfTrees--;
+        if (numOfTrees<20){
+            System.out.println(numOfTrees);
+        }
 		totalLinks++;
 		node2.parent = node1;
 		node1.rank++;
 
-		if (node1.child == null)node1.child = node2;
+        if (node1.child == null){node1.child = node2;}
 		node2.next = node1.child;
 		node2.prev = node1.child.prev;
 		node1.child.prev.next = node2;
@@ -255,6 +266,8 @@ public class FibonacciHeap
         this.size += Math.abs(heap2.size);
         this.totalCuts += heap2.totalCuts;
         this.totalLinks += heap2.totalLinks;
+        numOfTrees += heap2.numOfTrees;
+        System.out.println(numTrees());
         heap2.size = 0;
         return;
     }
