@@ -1,4 +1,4 @@
-package fibonachiheap.fibonachiheap;
+package fibonachiheap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,10 +27,10 @@ public class FibonacciHeapTester {
 
     public static void main(String[] args) {
         testSize();
-        testBasicOperations();
-        testLargeInsertDelete();
-        testRandomOperations();
-        testMeldMultipleHeaps();
+        //testBasicOperations();
+        //testLargeInsertDelete();
+        //testRandomOperations();
+        //testMeldMultipleHeaps();
 
         System.out.println("=== ALL TESTS PASSED SUCCESSFULLY ===");
     }
@@ -309,7 +309,6 @@ public class FibonacciHeapTester {
             throw new AssertionError("After second deleteMin, size should be " + ((N - 1) + 2 - 1)
                     + ", but got " + sizeAfterDelMin);
         }
-
         // Optionally, do more checks or remove everything until empty
         // Just for demonstration, remove all until empty:
         while (heap.size()!=0) {

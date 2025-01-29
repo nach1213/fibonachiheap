@@ -4,7 +4,7 @@
  * It runs a series of insert, findMin, deleteMin, decreaseKey, delete, meld, and so on,
  * printing out intermediate results.
  */
-package fibonachiheap.fibonachiheap;
+package fibonachiheap;
 
 
 public class Main {
@@ -76,6 +76,8 @@ public class Main {
         FibonacciHeap heap = new FibonacciHeap();
         heap.insert(10, "Ten");
         heap.insert(5, "Five");
+
+        
         heap.insert(7, "Seven");
 
         System.out.println("Expected size = 3, got size() = " + heap.size());
