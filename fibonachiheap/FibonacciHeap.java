@@ -124,29 +124,33 @@ public class FibonacciHeap
     }
 
 	public HeapNode merge(HeapNode node1, HeapNode node2){
+        //step 1
 		if(node1.key > node2.key){
             return merge(node2,node1);
 		}
-		numOfTrees--;
-        node1.numOfChild++;
-        if (numOfTrees<20){
-            //System.out.println(numOfTrees);
-        }
-		totalLinks++;
-		node2.parent = node1;
-		node1.rank++;
-
-        if (node1.child == null){node1.child = node2;}
-		node2.next = node1.child;
-		node2.prev = node1.child.prev;
-		node1.child.prev.next = node2;
-		node1.child.prev = node2;
-
-		HeapNode start = node1.child, end = start.prev;
-
-		node2.next = node1.child;
-		node1.child.prev.next = node2;
+        //step 2
+        numOfTrees--;
+        totalLinks++;
+        //step 3
         node2.parent = node1;
+        //step 4
+        node1.numOfChild++;
+        node1.rank++;
+        //step 5
+        node2.next.prev = node2.prev;
+        node2.prev.next = node2.next;
+        //step 6
+        if (node1.child == null){
+            node1.child = node2;
+            node2.next = node2;
+            node2.prev = node2;
+        } else {
+            HeapNode childNode = node1.child;
+            childNode.next.prev = node2;
+            node2.next = childNode.next;
+            childNode.next = node2;
+            node2.prev = childNode;
+        }
 		return node1;
 	}
     /**
