@@ -101,7 +101,7 @@ public class FibonacciHeap
             HeapNode newHeapNode = heapNode;
             while (lstBySize[newHeapNode.rank] != null){
                 newHeapNode = merge(newHeapNode,lstBySize[newHeapNode.rank]);
-                lstBySize[newHeapNode.rank] = null;
+                lstBySize[newHeapNode.rank - 1] = null;
             }
             lstBySize[newHeapNode.rank] = newHeapNode;
         }
