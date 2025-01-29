@@ -95,6 +95,7 @@ public class FibonacciHeap
             cornet = cornet.next;
             System.out.println("min="+min.key);
             System.out.println("cornet="+cornet.key);
+            System.out.println("the next of min is min?=" + (min == min.next));
             if (cornet.key < min.key){
                 min = cornet;
             }
