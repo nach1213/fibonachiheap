@@ -4,7 +4,7 @@
  * It runs a series of insert, findMin, deleteMin, decreaseKey, delete, meld, and so on,
  * printing out intermediate results.
  */
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 
 
 public class Main {
