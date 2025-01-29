@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("======== Fibonacci Heap Tester ========");
 
+        /*
         // 1. Test empty heap behavior
         testEmptyHeap();
 
@@ -31,15 +32,15 @@ public class Main {
 
         // 7. Check link/cut counters
         testCounters();
+        */
+        //part2.do_first_test();
+        part2.do_second_test();
 
-
-
-
-        System.out.println("======== All Tests Completed ========");
+        /*System.out.println("======== All Tests Completed ========");
         for (int i=0 ; i < 2; i++){
             testBasicInsertAndFindMin();
             testDelete();
-        }
+        }*/
 
     }
     public static void print_roots(FibonacciHeap my_heap){
@@ -98,19 +99,22 @@ public class Main {
         FibonacciHeap heap = new FibonacciHeap();
 
         // Insert multiple items
-        int[] keys = {4, 4, 2, 10, 2, 1, 15, 1};
+        int[] keys = {4,   10, 2, 15, 1};
         for (int k : keys) {
             heap.insert(k, "Value"+k);
         }
-        System.out.println("Inserted keys: 4,4,2,10,2,1,15,1");
-        System.out.println("size() = " + heap.size() + ", expected = 8");
+        System.out.println("Inserted keys: 4,10,2,15,1");
+        System.out.println("size() = " + heap.size() + ", expected = 6");
         System.out.println("findMin() = " + (heap.findMin() != null ? heap.findMin().key : "null")
                 + " (expected 1)");
 
         // Delete min until heap is empty
         while (!isHeapEmpty(heap)) {
             int minKey = heap.findMin().key;
+
+            System.out.println("numb of trees: " + heap.numTrees());
             heap.deleteMin();
+            //print_roots(heap);
             System.out.println("deleteMin() removed " + minKey
                     + ", new min = " + (heap.findMin() != null ? heap.findMin().key : "null")
                     + ", size() = " + heap.size());
