@@ -9,13 +9,14 @@ public class FibonacciHeapTest {
     private static int expectedSize;
 
     public static void main(String[] args) {
-        setUp();
+        heap = new FibonacciHeap();
+        setUp(heap);
         performTests();
     }
 
     // אתחול ההיפ והוספת 500 איברים אקראיים
-    private static void setUp() {
-        heap = new FibonacciHeap();
+    private static void setUp(FibonacciHeap heap) {
+        ;
         Random rand = new Random();
         for (int i = 0; i < 500; i++) {
             heap.insert(rand.nextInt(1000), "Node " + i);
@@ -30,33 +31,41 @@ public class FibonacciHeapTest {
         testNumTreesInitiallyZero();
         testNumTreesAfterInsert();
         testNumTreesAfterDeleteMin();
+        setUp(heap);
         testDecreaseKey();
         testDecreaseKeyWithParentSmaller();
         testCut();
+        setUp(heap);
         testCutWithRankAdjustment();
         testRankAdjustmentAfterCut();
         testRankAdjustmentMultipleChildren();
         testDeleteMinOnEmptyHeap();
         testMeld();
         testSize();
-
+        setUp(heap);
+        setUp(heap);
         // ביצוע `deleteMin`
         heap.deleteMin();
         expectedNumTrees--;  // עדכון אחרי פעולת deleteMin
         expectedSize--;
-
+        setUp(heap);
         // בדיקות אחרי `deleteMin`
         testNumTreesInitiallyZero();
+        setUp(heap);
         testNumTreesAfterInsert();
         testNumTreesAfterDeleteMin();
         testDecreaseKey();
+        setUp(heap);setUp(heap);setUp(heap);setUp(heap);setUp(heap);setUp(heap);        heap.deleteMin();
+        heap.deleteMin();
         testDecreaseKeyWithParentSmaller();
-        testCut();
-        testCutWithRankAdjustment();
-        testRankAdjustmentAfterCut();
-        testRankAdjustmentMultipleChildren();
-        testDeleteMinOnEmptyHeap();
-        testMeld();
+        testCut();setUp(heap);setUp(heap);
+        heap.deleteMin();
+        testCutWithRankAdjustment();setUp(heap);
+        testRankAdjustmentAfterCut();setUp(heap);
+        testRankAdjustmentMultipleChildren();setUp(heap);
+        testDeleteMinOnEmptyHeap();setUp(heap);
+        testMeld();setUp(heap);
+        heap.deleteMin();
         testSize();
     }
 
@@ -146,6 +155,7 @@ public class FibonacciHeapTest {
         FibonacciHeap.HeapNode parentNode = heap.insert(50, "Parent Node");
         FibonacciHeap.HeapNode childNode = heap.insert(60, "Child Node");
         childNode.parent = parentNode;
+
         parentNode.rank++;
         parentNode.numOfChild++;
         heap.cut(childNode);

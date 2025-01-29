@@ -62,7 +62,6 @@ public class FibonacciHeap
      * Delete the minimal item
      *
      */
-
     public void deleteMin()
     {
         if (size == 1 || size == 0){
@@ -121,7 +120,7 @@ public class FibonacciHeap
         for (int j=0; j<size; j++) {
             HeapNode heapNode = lstOfTree[j];
             if (heapNode == null){
-                break;
+                continue;
             }
             HeapNode newHeapNode = heapNode;
 
