@@ -73,6 +73,7 @@ public class FibonacciHeap
             return;
         }
         numOfTrees--;
+        size--;
         if (min.next == min && min.child != null){
             HeapNode cornet = min.child;
             HeapNode newMin = min.child;
@@ -126,7 +127,6 @@ public class FibonacciHeap
             }
             lstBySize[newHeapNode.rank] = newHeapNode;
         }
-        size--;
         return;
     }
 

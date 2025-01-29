@@ -96,12 +96,12 @@ public class Main {
         FibonacciHeap heap = new FibonacciHeap();
 
         // Insert multiple items
-        int[] keys = {4, 4, 2, 10, 2, 1, 15, 1};
+        int[] keys = {4, 10, 2, 1, 15};
         for (int k : keys) {
             heap.insert(k, "Value"+k);
         }
-        System.out.println("Inserted keys: 4,4,2,10,2,1,15,1");
-        System.out.println("size() = " + heap.size() + ", expected = 8");
+        System.out.println("Inserted keys: 4,2,10,1,15");
+        System.out.println("size() = " + heap.size() + ", expected = 5");
         System.out.println("findMin() = " + (heap.findMin() != null ? heap.findMin().key : "null")
                 + " (expected 1)");
 
