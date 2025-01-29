@@ -93,8 +93,8 @@ public class FibonacciHeap
             cornet.mark = false;
             i++;
             cornet = cornet.next;
-            System.out.println(min.key);
-            System.out.println(cornet.key);
+            System.out.println("min="+min.key);
+            System.out.println("cornet="+cornet.key);
             if (cornet.key < min.key){
                 min = cornet;
             }
@@ -116,6 +116,7 @@ public class FibonacciHeap
             }
             lstBySize[newHeapNode.rank] = newHeapNode;
         }
+        System.out.println("min="+min.key);
         size--;
         return;
     }
