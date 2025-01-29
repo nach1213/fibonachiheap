@@ -116,7 +116,7 @@ public class FibonacciHeap
             }
             lstBySize[newHeapNode.rank] = newHeapNode;
         }
-        System.out.println("min="+min.key);
+        System.out.println("min at the end ="+min.key);
         size--;
         return;
     }
