@@ -118,8 +118,7 @@ public class FibonacciHeap
                 continue;
             }
             HeapNode newHeapNode = heapNode;
-            if (newHeapNode.rank+1 >= (int) (Math.log(size)/Math.log(2))){
-                //System.out.println(newHeapNode.rank);
+            if (newHeapNode.rank+1 >= (int) (Math.log(size)/Math.log(2)+1)){
             }
             while (lstBySize[newHeapNode.rank] != null){
                 newHeapNode = merge(newHeapNode,lstBySize[newHeapNode.rank]);
@@ -127,7 +126,6 @@ public class FibonacciHeap
             }
             lstBySize[newHeapNode.rank] = newHeapNode;
         }
-        System.out.println("min at the end ="+min.key);
         size--;
         return;
     }
@@ -286,7 +284,6 @@ public class FibonacciHeap
         this.totalCuts += heap2.totalCuts;
         this.totalLinks += heap2.totalLinks;
         numOfTrees += heap2.numOfTrees;
-        //System.out.println(numTrees());
         heap2.size = 0;
         return;
     }
@@ -345,12 +342,6 @@ public class FibonacciHeap
         }
         heapNode.parent.numOfChild--;
         heapNode.parent.rank = heapNode.parent.numOfChild;
-        /*if (heapNode.parent.child == heapNode && heapNode.prev != heapNode) {
-            heapNode.parent.child = heapNode.prev;
-            heapNode.parent.rank = heapNode.child.rank + 1;
-        } else if (heapNode.parent.child == heapNode && heapNode.prev == heapNode) {
-            heapNode.parent.rank = 0;
-        }*/
     }
 
     /**
