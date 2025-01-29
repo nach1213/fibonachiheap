@@ -73,7 +73,20 @@ public class FibonacciHeap
             return;
         }
         numOfTrees--;
-        if (min.child != null){
+        if (min.next == min && min.child != null){
+            HeapNode cornet = min.child;
+            HeapNode newMin = min.child;
+            do{
+                cornet.parent = null;
+                cornet = cornet.next;
+                if (newMin.key > cornet.key){
+                    newMin = cornet;
+                }
+            } while (cornet != min.child);
+            min = newMin;
+            return;
+        }
+        else if (min.child != null){
             min.next.prev = min.child;
             min.child.next = min.next;
             min.prev.next = min.child.prev;
@@ -93,10 +106,6 @@ public class FibonacciHeap
             cornet.mark = false;
             i++;
             cornet = cornet.next;
-            System.out.println("min="+min.key);
-            System.out.println("cornet="+cornet.key);
-            System.out.println("the next of min is min?=" + (min == min.next));
-            System.out.println("the prev of min is min?=" + (min == min.prev));
             if (cornet.key < min.key){
                 min = cornet;
             }
