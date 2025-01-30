@@ -1,3 +1,12 @@
+/*
+first student - nadav cherno
+id - 328242284
+username - cherno
+first student -
+id -
+username -
+ */
+
 package fibonachiheap.fibonachiheap;
 
 //
@@ -10,6 +19,7 @@ public class FibonacciHeap
     public int numOfTrees; // Total number of trees
     /**
      * Constructor to initialize an empty heap.
+     * Time Complexity: O(1)
      */
     public FibonacciHeap() {
         this.min = null; // Initialize the minimum node pointer to null, indicating an empty heap.
@@ -22,6 +32,7 @@ public class FibonacciHeap
     /**
      * Inserts a new node with a given key and info into the heap.
      * Updates the minimum node if necessary.
+     * Time Complexity: O(1)
      * @param key The key of the new node.
      * @param info Additional information for the node.
      * @return The newly created HeapNode.
@@ -48,7 +59,7 @@ public class FibonacciHeap
     /**
      *
      * Return the minimal HeapNode, null if empty.
-     *
+     * Time Complexity: O(1)
      */
     public HeapNode findMin()
     {
@@ -58,7 +69,7 @@ public class FibonacciHeap
     /**
      *
      * Delete the minimal item
-     *
+     * Time Complexity: O(log n) (Amortized)
      */
     public void deleteMin() {
         // In case the heap is empty or will be emptied after we reset it
@@ -158,6 +169,7 @@ public class FibonacciHeap
      * @param node1 - the small node(now how to deal even if he is the big one)
      * @param node2 - the big node
      * @return the link node
+     * Time Complexity: O(1)
      */
     public HeapNode merge(HeapNode node1, HeapNode node2){
         //step 1 - Swapping them if the nodes arrived in the wrong order
@@ -193,7 +205,7 @@ public class FibonacciHeap
      *
      * pre: 0<diff<x.key
      * Decrease the key of x by diff and fix the heap.
-     *
+     * Time Complexity: O(1) (Amortized)
      */
     public void decreaseKey(HeapNode x, int diff)
     {
@@ -226,7 +238,7 @@ public class FibonacciHeap
     /**
      *
      * Delete the x from the heap.
-     *
+     * Time Complexity: O(1) (Amortized)
      */
     public void delete(HeapNode x)
     {
@@ -268,7 +280,7 @@ public class FibonacciHeap
     /**
      *
      * Return the total number of links.
-     *
+     * Time Complexity: O(1)
      */
     public int totalLinks()
     {
@@ -279,7 +291,7 @@ public class FibonacciHeap
     /**
      *
      * Return the total number of cuts.
-     *
+     * Time Complexity: O(1)
      */
     public int totalCuts()
     {
@@ -290,7 +302,7 @@ public class FibonacciHeap
     /**
      *
      * Meld the heap with heap2
-     *
+     * Time Complexity: O(1)
      */
     public void meld(FibonacciHeap heap2)
     {
@@ -320,7 +332,7 @@ public class FibonacciHeap
     /**
      *
      * Return the number of elements in the heap
-     *
+     * Time Complexity: O(1)
      */
     public int size()
     {
@@ -331,7 +343,7 @@ public class FibonacciHeap
     /**
      *
      * Return the number of trees in the heap.
-     *
+     * Time Complexity: O(1)
      */
     public int numTrees()
     {
@@ -341,6 +353,7 @@ public class FibonacciHeap
     /**
      *
      * cut the node and then check the parent and cut if mark if not mark
+     * Time Complexity: O(1) (Amortized)
      */
     public void cut(HeapNode nodeToCut) {
         nodeToCut.mark = false;
@@ -366,6 +379,7 @@ public class FibonacciHeap
 
     /**
      * adjusting the rank of the parents of the node before moving him
+     * Time Complexity: O(1)
      */
     public void rankAdjustment(HeapNode heapNode){
         if (heapNode.parent == null) {
