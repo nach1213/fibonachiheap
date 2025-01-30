@@ -8,26 +8,23 @@ public class FibonacciHeap
     public int totalLinks; // Total number of links
     public int totalCuts; // Total number of cuts
     public int numOfTrees; // Total number of trees
-
     /**
-     *
      * Constructor to initialize an empty heap.
-     *
      */
-    public FibonacciHeap()
-    {
-        this.min = null;
-        this.size = 0;
-        this.totalCuts = 0;
-        this.totalLinks = 0;
-        this.numOfTrees = 0;
+    public FibonacciHeap() {
+        this.min = null; // Initialize the minimum node pointer to null, indicating an empty heap.
+        this.size = 0; // Set the size of the heap to 0, as there are no nodes initially.
+        this.totalCuts = 0; // Initialize the total number of cuts to 0.
+        this.totalLinks = 0; // Initialize the total number of links to 0.
+        this.numOfTrees = 0; // Initialize the number of trees in the heap to 0.
     }
 
     /**
-     *
-     * pre: key > 0
-     * Insert (key,info) into the heap and return the newly generated HeapNode.
-     *
+     * Inserts a new node with a given key and info into the heap.
+     * Updates the minimum node if necessary.
+     * @param key The key of the new node.
+     * @param info Additional information for the node.
+     * @return The newly created HeapNode.
      */
     public HeapNode insert(int key, String info)
     {
@@ -64,6 +61,7 @@ public class FibonacciHeap
      *
      */
     public void deleteMin() {
+        // In case the heap is empty or will be emptied after we reset it
         if (size == 1 || size == 0) {
             min = null;
             size = 0;
@@ -73,8 +71,11 @@ public class FibonacciHeap
         if (min == null) {
             return;
         }
+        // Height update for the number of children
         size--;
         numOfTrees += get_number_of_minimum_children() - 1;
+        // Divided into cases
+        // If he has children but is the only root
         if (min.next == min && min.child != null) {
             HeapNode cornet = min.child;
             HeapNode newMin = min.child;
@@ -89,6 +90,7 @@ public class FibonacciHeap
             } while (cornet != min.child);
             this.min = newMin;
             return;
+            //If he is with children and not the only root
         } else if (min.child != null) {
             HeapNode connectFromTheEnd = min.next;
             HeapNode connectFromTheStart = min.prev;
@@ -96,6 +98,7 @@ public class FibonacciHeap
             min.child.prev.next = connectFromTheEnd;
             connectFromTheStart.next = min.child;
             min.child.prev = connectFromTheStart;
+            //If he is without children but with other roots
         } else {
             min.next.prev = min.prev;
             min.prev.next = min.next;
@@ -117,6 +120,8 @@ public class FibonacciHeap
             }
         } while (cornet != stop);
         this.min = new_min;
+        //Performing link according to the rank of the roots using a list
+        //If there are two nodes that are up for being the min, what happens is that the first of them will be the min according to the function that searches for the min and according to the order in which we check it will be the first one according to which we build the tree (node1) and therefore it will always be the root.
         HeapNode[] lstBySize = new HeapNode[log_n];
         for (int j=0; j<size; j++) {
             HeapNode heapNode = lstOfTree[j];
@@ -133,6 +138,7 @@ public class FibonacciHeap
         }
         return;
     }
+    //Checks the number of children of min Written to prevent errors
     public int get_number_of_minimum_children(){
         int count = 0;
         if (min.child == null){
@@ -146,23 +152,30 @@ public class FibonacciHeap
         while(current != min.child);
         return count;
     }
+
+    /**
+     * The function that merges the trees receives two pointers to nodes and swaps them if it received them in the wrong order and connects the larger one to be the child of the smaller one while updating all relevant facts and reducing the tree by 1.
+     * @param node1 - the small node(now how to deal even if he is the big one)
+     * @param node2 - the big node
+     * @return the link node
+     */
     public HeapNode merge(HeapNode node1, HeapNode node2){
-        //step 1
+        //step 1 - Swapping them if the nodes arrived in the wrong order
         if(node1.key > node2.key){
             return merge(node2,node1);
         }
-        //step 2
+        //step 2 - Heap update
         numOfTrees--;
         totalLinks++;
-        //step 3
+        //step 3 - node2 update parent
         node2.parent = node1;
-        //step 4
+        //step 4 node1 -update
         node1.numOfChild++;
         node1.rank++;
-        //step 5
+        //step 5 - removing node2 from its current location
         node2.next.prev = node2.prev;
         node2.prev.next = node2.next;
-        //step 6
+        //step 6 - Placing it in its new location
         if (node1.child == null){
             node1.child = node2;
             node2.next = node2;
@@ -296,7 +309,7 @@ public class FibonacciHeap
         if (this.min.key > heap2.min.key) {
             this.min = heap2.min;
         }
-        this.size += Math.abs(heap2.size);
+        this.size += heap2.size;
         this.totalCuts += heap2.totalCuts;
         this.totalLinks += heap2.totalLinks;
         numOfTrees += heap2.numOfTrees;
