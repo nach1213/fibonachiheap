@@ -1,4 +1,4 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 
 import java.util.Random;
 
@@ -45,6 +45,7 @@ public class FibonacciHeapTest {
         setUp(heap);
         setUp(heap);
         // ביצוע `deleteMin`
+        System.out.println(heap.numOfTrees);
         heap.deleteMin();
         expectedNumTrees--;  // עדכון אחרי פעולת deleteMin
         expectedSize--;
@@ -53,6 +54,7 @@ public class FibonacciHeapTest {
         testNumTreesInitiallyZero();
         setUp(heap);
         testNumTreesAfterInsert();
+        System.out.println(heap.numOfTrees);
         testNumTreesAfterDeleteMin();
         testDecreaseKey();
         setUp(heap);setUp(heap);setUp(heap);setUp(heap);setUp(heap);setUp(heap);        heap.deleteMin();
@@ -60,12 +62,17 @@ public class FibonacciHeapTest {
         testDecreaseKeyWithParentSmaller();
         testCut();setUp(heap);setUp(heap);
         heap.deleteMin();
+        System.out.println(heap.numOfTrees);
         testCutWithRankAdjustment();setUp(heap);
         testRankAdjustmentAfterCut();setUp(heap);
+        System.out.println(heap.numOfTrees);
         testRankAdjustmentMultipleChildren();setUp(heap);
         testDeleteMinOnEmptyHeap();setUp(heap);
         testMeld();setUp(heap);
         heap.deleteMin();
+        System.out.println(heap.numOfTrees);
+        System.out.println(heap.size);
+        System.out.println(heap.min.key);
         testSize();
     }
 

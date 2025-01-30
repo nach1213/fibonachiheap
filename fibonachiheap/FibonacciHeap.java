@@ -63,38 +63,39 @@ public class FibonacciHeap
      * Delete the minimal item
      *
      */
-    public void deleteMin()
-    {
-        if (size == 1 || size == 0){
+    public void deleteMin() {
+        if (size == 1 || size == 0) {
             min = null;
             size = 0;
             numOfTrees = 0;
             return;
         }
-        if (min == null){
+        if (min == null) {
             return;
         }
         size--;
-        numOfTrees += get_number_of_minimum_children()-1;
-        if(get_number_of_minimum_children() == 0)System.out.println("get_number_of_minimum_children() == 0");
-        if (min.next == min && min.child != null){
+        numOfTrees += get_number_of_minimum_children() - 1;
+        if (min.next == min && min.child != null) {
             HeapNode cornet = min.child;
             HeapNode newMin = min.child;
-            do{
+            do {
                 cornet.parent = null;
+                totalCuts++;
+                cornet.mark = false;
                 cornet = cornet.next;
-                if (newMin.key > cornet.key){
+                if (newMin.key > cornet.key) {
                     newMin = cornet;
                 }
             } while (cornet != min.child);
             this.min = newMin;
             return;
-        }
-        else if (min.child != null){
-            min.next.prev = min.child;
-            min.child.next = min.next;
-            min.prev.next = min.child.prev;
-            min.child.prev.prev = min.prev;
+        } else if (min.child != null) {
+            HeapNode connectFromTheEnd = min.next;
+            HeapNode connectFromTheStart = min.prev;
+            connectFromTheEnd.prev = min.child.prev;
+            min.child.prev.next = connectFromTheEnd;
+            connectFromTheStart.next = min.child;
+            min.child.prev = connectFromTheStart;
         } else {
             min.next.prev = min.prev;
             min.prev.next = min.next;
@@ -103,9 +104,8 @@ public class FibonacciHeap
         HeapNode cornet = min.next;
         HeapNode stop = min.next;
         HeapNode new_min = min.next;
-        int log_n = (int) (Math.log(size)/Math.log(2)+1);
-        HeapNode[] lstOfTree = new HeapNode[size+1];
-        if(numOfTrees==0)System.out.println("numOfTrees==0");
+        int log_n = (int) (Math.log(size) / Math.log(2) + 1);
+        HeapNode[] lstOfTree = new HeapNode[size + 1];
         int i=0;
         do {
             lstOfTree[i] = cornet;
@@ -200,12 +200,12 @@ public class FibonacciHeap
         }
         else if (x.key < x.parent.key) {
             rankAdjustment(x);
+            numOfTrees++;
             if (x.parent.child == x && x.next == x) {
                 x.parent.child = null;
                 x.parent = null;
             }
             cut(x);
-            numOfTrees++;
         }
         return;
     }
@@ -334,6 +334,8 @@ public class FibonacciHeap
         if (nodeToCut.parent == null) {
             return;
         }
+        nodeToCut.parent.rank--;
+        nodeToCut.numOfChild--;
         nodeToCut.next.prev = nodeToCut.prev;
         nodeToCut.prev.next = nodeToCut.next;
         nodeToCut.next = min.next;

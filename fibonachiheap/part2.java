@@ -1,5 +1,6 @@
-package fibonachiheap;
+package fibonachiheap.fibonachiheap;
 import java.util.Random;
+import java.util.logging.Handler;
 
 //
 
@@ -51,13 +52,18 @@ public class part2 {
     public static void do_second_test(){
         for(int i = 0; i < 5; i++){
             int n = (int)Math.pow(3,i+8) - 1;
+            n = 10;
             FibonacciHeap heap = new FibonacciHeap();
 
             long start = System.currentTimeMillis();
 
             int[] per = randomPermutation(n);
+            FibonacciHeap.HeapNode heapNode;
             for(int j = 0; j < n; j++){
-                heap.insert(per[j], "Node " + j);
+                FibonacciHeap.HeapNode x = heap.insert(per[j], "Node " + j);
+                if (x.key == 4){
+                    heapNode = x;
+                }
             }
             for(int j = 0; j < n/2; j++) {
                 System.out.println(heap.size());
